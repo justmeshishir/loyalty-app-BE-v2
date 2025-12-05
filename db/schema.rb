@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_05_075633) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_05_075818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_customers", force: :cascade do |t|
+    t.bigint "business_id"
+    t.bigint "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_customers_on_business_id"
+    t.index ["customer_id"], name: "index_business_customers_on_customer_id"
+  end
 
   create_table "businesses", force: :cascade do |t|
     t.string "name", null: false
@@ -40,4 +49,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_05_075633) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "business_customers", "businesses"
+  add_foreign_key "business_customers", "customers"
 end
