@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '76d7800e855a955b4094981953fbb7f4d244f662d528eb03a64467910f761c58a3fa1fcdc1150016809818613b13118aa08acab8b5f02ef0c4b7876afcffc826'
+  # config.secret_key = '2e0e7c076e6ba91d4a625080d194e88cc19bcddbf761cbb572d5af995f9237e0b3b76ae8643ae2947124eae2250e7c6bd270324d8a26bd33dcd3d5014ebc77c2'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -58,12 +58,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [ :email ]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [ :email ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -97,7 +97,7 @@ Devise.setup do |config|
   # Notice that if you are skipping storage for all authentication paths, you
   # may want to disable generating routes to Devise's sessions controller by
   # passing skip: :sessions to `devise_for` in your config/routes.rb
-  config.skip_session_storage = [:http_auth]
+  config.skip_session_storage = [ :http_auth ]
 
   # By default, Devise cleans up the CSRF token on authentication to
   # avoid CSRF token fixation attacks. This means that, when using AJAX
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'f9b2a5817865d305c72807b1148a924141c8c9e995074deaa7de61b20ee59dd93762321015f1502e6c203da0c38b995affdfd9a669166e3450f014e60e6d3c99'
+  # config.pepper = '741f54118e0562bafb17afaf5cbfe237f22a08549f11a58962a66e8a03ec5c5e4ef40a240cb850e2c1cb30e7f97977212a8b4e96db8b88df18a300d8ac903a48'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -310,4 +310,17 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  config.jwt do |jwt|
+    jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
+    jwt.dispatch_requests = [
+      [ "POST", %r{^/signin$} ]
+    ]
+    jwt.revocation_requests = [
+      [ "DELETE", %r{^/signout$} ]
+    ]
+    jwt.expiration_time = 30.minutes.to_i
+  end
+
+  config.navigational_formats = []
 end

@@ -25,6 +25,9 @@ gem "bootsnap", require: false
 
 # authentication
 gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'devise-jwt'
+# For CORS support in API-only apps
+gem 'rack-cors'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
