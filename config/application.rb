@@ -28,5 +28,14 @@ module LoyaltyAppBeV2
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Source - https://stackoverflow.com/a/74020045
+    # Posted by trazillian
+    # Retrieved 2025-12-09, License - CC BY-SA 4.0
+
+    config.session_store :cookie_store, key: '_loyalty_session'
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use config.session_store, config.session_options
+
   end
 end
