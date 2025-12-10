@@ -4,7 +4,7 @@ module Api
       before_action :set_customer, only: %i[show update destroy]
 
       def index
-        render json: { data: Customer.all.as_json }, status: :ok
+        render json: { data: current_business.customers.as_json }, status: :ok
       end
 
       def show
@@ -12,8 +12,8 @@ module Api
       end
 
       def create
-        customer = Customer.new(customer_params)
-        render json: { data: customer.as_json }, status: :ok if customer.save
+        customer = current_business.customers.create(customer_params)
+        render json: { data: customer.as_json }, status: :ok if customer
       end
 
       def update
@@ -27,11 +27,11 @@ module Api
       private
 
       def customer_params
-        params.require(:customer).permit(:first_name, :last_name, :email, :phone, :dob, :address, :gender, :active, :notes)
+        params.require(:customer).permit(:business_id, :first_name, :last_name, :email, :phone, :dob, :address, :gender, :active, :notes)
       end
 
       def set_customer
-        @customer = Customer.find(params[:id])
+        @customer = current_business.customers.find(params[:id])
       end
     end
   end

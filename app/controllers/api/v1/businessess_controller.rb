@@ -1,6 +1,7 @@
 module Api
   module V1
     class BusinessessController < BaseController
+      skip_before_action :authenticate_business!
       before_action :set_business, only: %i[show update destroy]
 
       def index
