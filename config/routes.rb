@@ -7,11 +7,9 @@ Rails.application.routes.draw do
 
   devise_for :businesses, path: "", path_names: {
     sign_in: "businesses/login",
-    sign_out: "businesses/logout",
-    registration: "businesses/signup"
+    sign_out: "businesses/logout"
   }, controllers: {
-    sessions: "businesses/sessions",
-    registrations: "businesses/registrations"
+    sessions: "businesses/sessions"
   }
 
   namespace :api do
