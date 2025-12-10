@@ -32,7 +32,7 @@ module Api
       end
 
       def set_business
-        @business = current_business
+        @business = Business.find(params[:id])
       end
     end
   end
