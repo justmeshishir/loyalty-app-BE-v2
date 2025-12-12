@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "medium": { "enum": ["code", "visit", "amount_spent"] },
+    "type": { "enum": ["percentage", "amount"] },
+    "value": { "type": "number" }
+  },
+  "required": ["medium", "type", "value"]
+}
