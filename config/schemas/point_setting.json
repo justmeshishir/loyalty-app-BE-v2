@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "properties": {
+    "amount_spent": { "type": "number", "$comment": "minimum amount to be spent to get points" },
+    "points_given": { "type": "integer", "$comment": "points given for above mentioned amount spent" },
+    "reward_type": { "enum": ["discount", "redeemable", "offer"] },
+    "reward_detail": { "type": "string", "$comment": "10% discount or Redeem these offers or Free Milkshake" }
+  },
+  "required": ["amount_spent", "points_given", "reward_type"]
+}

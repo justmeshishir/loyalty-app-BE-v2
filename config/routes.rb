@@ -14,9 +14,29 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :businessess do
-        resources :customers
+      resources :businessess
+      resources :customers
+
+      # Loyalty settings endpoints
+      scope :stamps do
+        get "/", to: "loyalty_settings#list_stamp_settings"
+        post "/", to: "loyalty_settings#create_stamp_setting"
+        put "/:id", to: "loyalty_settings#update_stamp_setting"
       end
+
+      scope :discounts do
+        get "/", to: "loyalty_settings#list_discount_settings"
+        post "/", to: "loyalty_settings#create_discount_setting"
+        put "/:id", to: "loyalty_settings#update_discount_setting"
+      end
+
+      scope :points do
+        get "/", to: "loyalty_settings#list_point_settings"
+        post "/", to: "loyalty_settings#create_point_setting"
+        put "/:id", to: "loyalty_settings#update_point_setting"
+      end
+
+      delete "/loyalty_settings/:id", to: "loyalty_settings#destroy"
     end
   end
 end

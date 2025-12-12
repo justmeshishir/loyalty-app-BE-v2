@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_09_112932) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_12_051327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_09_112932) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "loyalty_loyalty_settings", force: :cascade do |t|
+    t.string "offer_name", null: false
+    t.integer "status", default: 0
+    t.integer "valid_days"
+    t.string "type", comment: "Loyalty Plan type Stamp, Discount or Point"
+    t.jsonb "rules", null: false
+    t.bigint "business_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_loyalty_loyalty_settings_on_business_id"
+  end
+
   add_foreign_key "business_customers", "businesses"
   add_foreign_key "business_customers", "customers"
+  add_foreign_key "loyalty_loyalty_settings", "businesses"
 end
