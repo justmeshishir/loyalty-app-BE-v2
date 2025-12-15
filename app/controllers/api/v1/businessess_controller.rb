@@ -28,7 +28,7 @@ module Api
       private
 
       def business_params
-        params.require(:business).permit(:name, :first_name, :last_name, :email, :phone, :industry, :logo_url, :active)
+        params.require(:business).permit(:name, :first_name, :last_name, :email, :phone, :industry, :logo_url, :active, :password)
       end
 
       def set_business
