@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_12_051327) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_16_115522) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,7 +79,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_12_051327) do
     t.index ["business_id"], name: "index_loyalty_loyalty_settings_on_business_id"
   end
 
+  create_table "loyalty_stamps", force: :cascade do |t|
+    t.bigint "business_customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_customer_id"], name: "index_loyalty_stamps_on_business_customer_id"
+  end
+
   add_foreign_key "business_customers", "businesses"
   add_foreign_key "business_customers", "customers"
   add_foreign_key "loyalty_loyalty_settings", "businesses"
+  add_foreign_key "loyalty_stamps", "business_customers"
 end
