@@ -84,10 +84,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_16_115522) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_customer_id"], name: "index_loyalty_stamps_on_business_customer_id"
+    t.index ["loyalty_loyalty_setting_id"], name: "index_loyalty_stamps_on_loyalty_loyalty_setting_id"
   end
 
   add_foreign_key "business_customers", "businesses"
   add_foreign_key "business_customers", "customers"
   add_foreign_key "loyalty_loyalty_settings", "businesses"
   add_foreign_key "loyalty_stamps", "business_customers"
+  add_foreign_key "loyalty_stamps", "loyalty_loyalty_settings"
 end
