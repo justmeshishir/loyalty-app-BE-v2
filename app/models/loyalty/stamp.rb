@@ -4,19 +4,20 @@ class Loyalty::Stamp < ApplicationRecord
 
   after_create :set_reward!, if: :eligible_for_reward?
 
-  def total_stamps
-    stamp_setting.rules["num_of_stamps"].to_i
-  end
+  alias_attribute :stamp_setting_id, :loyalty_loyalty_setting_id
+
+  scope :not_expired, -> { where(expired: false) }
+  scope :for_loyalty, ->(stamp_setting_id) { where(loyalty_loyalty_setting_id: stamp_setting_id) }
 
   private
 
   def eligible_for_reward?
     # return false if still_valid? # Todo: define still_valid? based on valid days
-    business_customer.collected_stamps(loyalty_loyalty_setting_id) == total_stamps
+    business_customer.collected_stamps(stamp_setting_id).size == stamp_setting.total_stamps_needed
   end
 
   def set_reward!
-    # create a reward entry
-    # set all stamps to expired: true
+    business_customer.rewards.create!(loyalty_loyalty_setting_id: stamp_setting_id)
+    business_customer.collected_stamps(stamp_setting_id).update_all(expired: true)
   end
 end
