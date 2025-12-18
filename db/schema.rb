@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_17_114637) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_18_042144) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_17_114637) do
     t.index ["business_id"], name: "index_loyalty_loyalty_settings_on_business_id"
   end
 
+  create_table "loyalty_points", force: :cascade do |t|
+    t.bigint "business_customer_id"
+    t.bigint "loyalty_loyalty_setting_id"
+    t.integer "value", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_customer_id"], name: "index_loyalty_points_on_business_customer_id"
+    t.index ["loyalty_loyalty_setting_id"], name: "index_loyalty_points_on_loyalty_loyalty_setting_id"
+  end
+
   create_table "loyalty_stamps", force: :cascade do |t|
     t.bigint "business_customer_id"
     t.bigint "loyalty_loyalty_setting_id"
@@ -101,6 +111,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_17_114637) do
   add_foreign_key "business_customers", "businesses"
   add_foreign_key "business_customers", "customers"
   add_foreign_key "loyalty_loyalty_settings", "businesses"
+  add_foreign_key "loyalty_points", "business_customers"
+  add_foreign_key "loyalty_points", "loyalty_loyalty_settings"
   add_foreign_key "loyalty_stamps", "business_customers"
   add_foreign_key "loyalty_stamps", "loyalty_loyalty_settings"
   add_foreign_key "rewards", "business_customers"
