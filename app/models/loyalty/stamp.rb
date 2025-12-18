@@ -19,8 +19,8 @@ class Loyalty::Stamp < ApplicationRecord
 
   def check_expired
     if self[:expired]
-      # Todo: remove this by adding in errors array
-      raise ActiveRecord::RecordNotDestroyed, "Cannot delete expired stamps"
+      errors.add(:expired, "cannot be deleted ")
+      throw(:abort)
     end
   end
 
