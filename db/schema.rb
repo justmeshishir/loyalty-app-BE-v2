@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_18_042144) do
     t.bigint "business_customer_id"
     t.bigint "loyalty_loyalty_setting_id"
     t.integer "value", default: 0, null: false
+    t.decimal "amount_spent", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_customer_id"], name: "index_loyalty_points_on_business_customer_id"

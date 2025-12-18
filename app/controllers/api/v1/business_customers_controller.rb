@@ -21,6 +21,24 @@ module Api
         end
       end
 
+      def create_points
+        point = @business_customer.points.new(point_params)
+        if point.save
+          render json: { data: point.as_json }, status: :ok
+        else
+          render json: { message: point.errors.full_messages }, status: :bad_request
+        end
+      end
+
+      def destroy_points
+        point = @business_customer.points.find(params[:id])
+        if point.destroy
+          render json: { message: "Deleted" }, status: :ok
+        else
+          render json: { message: point.errors.full_messages }, status: :bad_request
+        end
+      end
+
       private
 
       def set_business_customer
@@ -29,6 +47,10 @@ module Api
 
       def stamp_params
         params.require(:stamp).permit(:stamp_setting_id)
+      end
+
+      def point_params
+        params.require(:point).permit(:point_setting_id, :amount_spent)
       end
     end
   end
