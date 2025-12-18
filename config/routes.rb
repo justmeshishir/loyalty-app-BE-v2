@@ -22,6 +22,9 @@ Rails.application.routes.draw do
         get "/", to: "loyalty_settings#list_stamp_settings"
         post "/", to: "loyalty_settings#create_stamp_setting"
         put "/:id", to: "loyalty_settings#update_stamp_setting"
+
+        post "/:business_customer_id/create", to: "business_customers#create_stamp"
+        delete "/:business_customer_id/destroy/:id", to: "business_customers#destroy_stamp"
       end
 
       scope :discounts do
