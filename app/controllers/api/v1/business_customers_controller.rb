@@ -32,6 +32,11 @@ module Api
 
       def destroy_points
         point = @business_customer.points.find(params[:id])
+        if point.value.negative?
+          render json: { message: "You cannot delete rewarded point" }, status: :bad_request
+          return
+        end
+
         if point.destroy
           render json: { message: "Deleted" }, status: :ok
         else
