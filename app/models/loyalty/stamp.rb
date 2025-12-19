@@ -10,12 +10,12 @@ class Loyalty::Stamp < ApplicationRecord
   scope :not_expired, -> { where(expired: false) }
   scope :for_loyalty, ->(stamp_setting_id) { where(loyalty_loyalty_setting_id: stamp_setting_id) }
 
+  private
+
   def eligible_for_reward?
     # return false if still_valid? # Todo: define still_valid? based on valid days
     business_customer.collected_stamps(stamp_setting_id).size == stamp_setting.total_stamps_needed
   end
-
-  private
 
   def check_expired
     if self[:expired]
