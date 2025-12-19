@@ -23,6 +23,7 @@ Rails.application.routes.draw do
         post "/", to: "loyalty_settings#create_stamp_setting"
         put "/:id", to: "loyalty_settings#update_stamp_setting"
 
+        # Routes for customers for stamps
         post "/:business_customer_id/create", to: "business_customers#create_stamp"
         delete "/:business_customer_id/destroy/:id", to: "business_customers#destroy_stamp"
       end
@@ -37,6 +38,10 @@ Rails.application.routes.draw do
         get "/", to: "loyalty_settings#list_point_settings"
         post "/", to: "loyalty_settings#create_point_setting"
         put "/:id", to: "loyalty_settings#update_point_setting"
+
+        # Routes for customers for points
+        post "/:business_customer_id/create", to: "business_customers#create_points"
+        delete "/:business_customer_id/destroy/:id", to: "business_customers#destroy_points"
       end
 
       delete "/loyalty_settings/:id", to: "loyalty_settings#destroy"
