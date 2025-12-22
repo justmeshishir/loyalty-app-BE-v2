@@ -4,6 +4,7 @@ class BusinessCustomer < ApplicationRecord
 
   has_many :stamps, class_name: "Loyalty::Stamp", dependent: :destroy
   has_many :points, class_name: "Loyalty::Point", dependent: :destroy
+  has_many :discounts, class_name: "Loyalty::Discount", dependent: :destroy
   has_many :rewards, dependent: :destroy
 
   def collected_stamps(loyalty_setting_id)
