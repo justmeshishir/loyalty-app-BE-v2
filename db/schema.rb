@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_12_19_054448) do
+ActiveRecord::Schema[7.2].define(version: 2025_12_23_120816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_19_054448) do
     t.bigint "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visits_count", default: 0, null: false
     t.index ["business_id"], name: "index_business_customers_on_business_id"
     t.index ["customer_id"], name: "index_business_customers_on_customer_id"
   end
@@ -118,6 +119,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_19_054448) do
     t.datetime "updated_at", null: false
     t.index ["business_customer_id"], name: "index_rewards_on_business_customer_id"
     t.index ["loyalty_loyalty_setting_id"], name: "index_rewards_on_loyalty_loyalty_setting_id"
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.bigint "business_customer_id"
+    t.text "note"
+    t.decimal "amount_spent", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_customer_id"], name: "index_visits_on_business_customer_id"
   end
 
   add_foreign_key "business_customers", "businesses"

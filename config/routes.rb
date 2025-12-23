@@ -45,6 +45,8 @@ Rails.application.routes.draw do
       end
 
       delete "/loyalty_settings/:id", to: "loyalty_settings#destroy"
+
+      resources :visits, only: [ :create ]
     end
   end
 end
