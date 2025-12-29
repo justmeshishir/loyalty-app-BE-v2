@@ -14,4 +14,8 @@ class Business < ApplicationRecord
   has_many :customers, through: :business_customers
 
   validates_presence_of :name, :phone
+
+  def current_loyalty_setting
+    loyalty_settings.active.first
+  end
 end
