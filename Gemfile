@@ -24,7 +24,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # authentication
-gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'devise', '~> 5.0'
 gem 'devise-jwt'
 # For CORS support in API-only apps
 gem 'rack-cors'
